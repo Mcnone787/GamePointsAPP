@@ -6,12 +6,12 @@
     RewriteEngine On
 
     # --- REGLAS PARA REVERB (WEBSOCKETS) ---
-    # Esto redirige las conexiones del navegador (ws) al puerto interno 8080
+    # Redirigir tráfico de WebSockets al puerto interno 8080
     RewriteCond %{HTTP:Upgrade} websocket [NC]
     RewriteCond %{HTTP:Connection} upgrade [NC]
     RewriteRule ^app/(.*) ws://127.0.0.1:8080/app/$1 [P,L]
 
-    # Esto redirige las peticiones de la API (POST) al puerto interno 8080
+    # Redirigir peticiones de la API de Reverb al puerto interno 8080
     RewriteRule ^apps/(.*) http://127.0.0.1:8080/apps/$1 [P,L]
     # --- FIN REGLAS REVERB ---
 

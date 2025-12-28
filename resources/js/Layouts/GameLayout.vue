@@ -35,9 +35,9 @@ import DropdownLink from '@/Components/DropdownLink.vue';
                             <button class="flex items-center group focus:outline-none">
                                 <div class="bg-white/90 backdrop-blur-md shadow-sm rounded-full p-1 border border-slate-200/50 flex items-center gap-3 pr-2 sm:pr-4 transition-transform active:scale-95">
                                     <div class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-lg shadow-inner ring-2 ring-white">
-                                        {{ $page.props.auth.user.name.charAt(0).toUpperCase() }}
+                                        {{ $page.props.auth.user ? $page.props.auth.user.name.charAt(0).toUpperCase() : '?' }}
                                     </div>
-                                    <span class="font-bold text-slate-700 hidden sm:block">{{ $page.props.auth.user.name }}</span>
+                                    <span class="font-bold text-slate-700 hidden sm:block">{{ $page.props.auth.user ? $page.props.auth.user.name : 'Invitado' }}</span>
                                     <svg class="h-4 w-4 text-slate-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </div>
                             </button>
