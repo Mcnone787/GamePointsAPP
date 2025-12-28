@@ -5,26 +5,22 @@
 
     RewriteEngine On
 
-    # --- REGLAS PARA REVERB (WEBSOCKETS) ---
-    # Redirigir tráfico de WebSockets al puerto interno 8080
+    # --- PUENTE PARA REVERB ---
+    # 1. Redirigir WebSockets (Navegador -> Reverb)
     RewriteCond %{HTTP:Upgrade} websocket [NC]
     RewriteCond %{HTTP:Connection} upgrade [NC]
     RewriteRule ^app/(.*) ws://127.0.0.1:8080/app/$1 [P,L]
 
-    # Redirigir peticiones de la API de Reverb al puerto interno 8080
+    # 2. Redirigir API (PHP -> Reverb)
     RewriteRule ^apps/(.*) http://127.0.0.1:8080/apps/$1 [P,L]
-    # --- FIN REGLAS REVERB ---
+    # --------------------------
 
-    # Handle Authorization Header
+    # Reglas estándar de Laravel
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
-    # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
